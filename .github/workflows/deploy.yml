@@ -47,7 +47,7 @@ jobs:
           username: ec2-user
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
-          source: "latest-build.zip,deployment.sh"
+          source: "latest-build.zip"
           target: "/var/www/deploy-package"
           strip_components: 0
 
