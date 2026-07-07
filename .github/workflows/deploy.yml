@@ -44,7 +44,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SERVER_IP }}
-          username: ubuntu
+          username: ec2-user
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           source: "latest-build.zip"
@@ -56,7 +56,7 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
-          username: ubuntu
+          username: ec2-user
           password: ${{ secrets.SERVER_PASSWORD }}
           port: 22
           script: |
