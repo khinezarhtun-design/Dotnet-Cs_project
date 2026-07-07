@@ -1,0 +1,54 @@
+name: .NET CI/CD Production Deployment Pipeline
+on:
+ push:
+ branches:
+ - main
+jobs:
+ build-and-deploy:
+ runs-on: ubuntu-latest
+ steps:
+ # Step 1: Checkout codebase to the virtual environment runner
+ - name: Checkout Code Repository
+ uses: actions/checkout@v4
+ # Step 2: Provision .NET Software Development Kit environment
+ - name: Setup .NET SDK Core Environment
+ uses: actions/setup-dotnet@v4
+ with:
+ dotnet-version: '8.0.x' # Update to reflect your target major runtime framework 
+version
+ # Step 3: Run modern explicit dependency resolution mapping
+ - name: Execute .NET Restore
+ run: dotnet restore
+ # Step 4: Perform compilation optimization packaging tasks
+ - name: Execute .NET Project Build
+ run: dotnet build --configuration Release --no-restore
+ # Step 5: Isolate compilations into production directory states
+ - name: Execute .NET Publish Distribution Binaries
+ run: dotnet publish --configuration Release --output ./publish --no-build
+ # Step 6: Create compressed tracking artifact transport payload
+ - name: Compress Release Package Artifact
+ run: |
+ cd ./publish
+ zip -r ../latest-build.zip . *
+ cd ..
+ # Step 7: Transport zip payload via SCP to the EC2 target storage path
+ - name: Copy Package Payload via Secure Copy Protocol (SCP)
+ uses: appleboy/scp-action@v0.1.7
+ with:
+ host: ${{ secrets.SERVER_IP }}
+ username: ec2-user
+ password: ${{ secrets.SERVER_PASSWORD }
+port: 22
+ source: "latest-build.zip"
+ target: "/var/www/deploy-package"
+ strip_components: 0
+ # Step 8: Trigger remote service updating process sequences via SSH
+ - name: Execute Automated Remote Server Update Pipeline
+ uses: appleboy/ssh-action@v1.0.3
+ with:
+ host: ${{ secrets.SERVER_IP }}
+ username: ec2-user
+ password: ${{ secrets.SERVER_PASSWORD }}
+ port: 22
+ script: |
+ bash /var/www/deploy/deployment.sh
