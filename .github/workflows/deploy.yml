@@ -17,6 +17,8 @@ jobs:
       # Step 2: Provision .NET Software Development Kit environment
       - name: Setup .NET SDK Core Environment
         uses: actions/setup-dotnet@v4
+        env:
+          DOTNET_INSTALL_DIR: '/home/ubuntu/dotnet'
         with:
           dotnet-version: '8.0.x' # Update to reflect your target major runtime framework version
 
