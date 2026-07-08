@@ -32,7 +32,7 @@ jobs:
 
       # Step 5: Isolate compilations into production directory states
       - name: Execute .NET Publish Distribution Binaries
-        run: dotnet publish --configuration Release --output ./publish --no-build
+        run: dotnet publish WebApplication1/WebApplication1.csproj --configuration Release --output ./publish --no-build
 
       # Step 6: Create compressed tracking artifact transport payload
       - name: Compress Release Package Artifact
