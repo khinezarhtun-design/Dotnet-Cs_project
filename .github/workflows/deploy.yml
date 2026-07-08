@@ -24,6 +24,7 @@ jobs:
 
       # Step 3: Run modern explicit dependency resolution mapping
       - name: Execute .NET Restore
+        working-directory: ./WebApplication1
         run: dotnet restore
 
       # Step 4: Perform compilation optimization packaging tasks
